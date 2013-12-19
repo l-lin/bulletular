@@ -1,0 +1,19 @@
+/* Space out content a bit */
+body {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin: 0 auto;
+	width: 900px;
+}
+
+.container {
+	padding: 3px;
+	background: #eee;
+	border-radius: 3px;
+}
+
+article {
+	background-color: #FFF;
+	border: 1px solid #CACACA;
+	padding: 30px;
+}

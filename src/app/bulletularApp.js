@@ -1,5 +1,5 @@
 (function(global, ng) {
-	'use strict';
+    'use strict';
 
-	ng.module('bulletularApp', ['bullet']);
+    ng.module('bulletularApp', ['bullet']);
 })(window, angular);

@@ -1,9 +1,6 @@
 * {
     margin: 0;
 }
-html, body {
-    height: 90%;
-}
 
 body {
 	padding-top: 20px;
@@ -15,10 +12,7 @@ h1 {
 }
 
 .container {
-	min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -100px; /* the bottom margin is the negative value of the footer's height */
+    margin: 0 auto;
 	width: 900px;
     font: 13px Helvetica, arial, freesans, clean, sans-serif;
 }
@@ -42,7 +36,7 @@ input:focus {
 input {
 	font-size: large;
     border: none;
-    width: auto;
+    width: 99%;
 }
 
 .complete {
@@ -67,8 +61,7 @@ header {
 }
 
 footer {
-    height: 100px; /* .push must be the same height as .footer */
-    margin: 0 auto;
+    margin: 30px auto 0 auto;
 	width: 900px;
     font: 15px Helvetica, arial, freesans, clean, sans-serif;
 }

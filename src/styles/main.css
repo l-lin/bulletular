@@ -17,3 +17,16 @@ article {
 	border: 1px solid #CACACA;
 	padding: 30px;
 }
+
+input:focus {
+    outline: 0;
+}
+
+input {
+    border: none;
+    width: auto;
+}
+
+.complete {
+    text-decoration: line-through;
+}

@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title>
+	<title>Bulletular</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width">
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="styles/main.css">
 	<!-- endbuild -->
 </head>
-<body ng-app="lrestoApp">
+<body ng-app="bulletularApp">
 	<!--[if lt IE 7]>
 	<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
@@ -29,8 +29,8 @@
 	
 	<!-- Add your site or application content here -->
 	<div class="container">
-		<article>
-			FOOBAR
+		<article ng-controller="bulletularCtrl">
+			<bullets items="items"></bullets>
 		</article>
 	</div>
 	
@@ -39,12 +39,15 @@
 	<!-- endbuild -->
 	
 	<!-- build:js app/modules.js -->
-	<script src="vendor/angular-cookies/angular-cookies.js"></script>
+	<script src="vendor/angular-ui-utils/modules/keypress/keypress.js"></script>
 	<!-- endbuild -->
 	
 	<!-- build:js({.tmp,src}) app/app.js -->
-	<script src="app/app.js"></script>
-	<script src="app/module1/main.js"></script>
+	<script src="app/bullet/bullet.js"></script>
+	<script src="app/bullet/bulletFactory.js"></script>
+	<script src="app/bullet/bulletDirective.js"></script>
+	<script src="app/bulletularApp.js"></script>
+	<script src="app/bulletularCtrl.js"></script>
 	<!-- endbuild -->
 </body>
 </html>

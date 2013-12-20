@@ -1,4 +1,10 @@
-/* Space out content a bit */
+* {
+    margin: 0;
+}
+html, body {
+    height: 100%;
+}
+
 body {
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -7,6 +13,13 @@ body {
 }
 
 .container {
+	min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -142px; /* the bottom margin is the negative value of the footer's height */
+}
+
+.wrapper {
 	padding: 3px;
 	background: #eee;
 	border-radius: 3px;
@@ -23,10 +36,30 @@ input:focus {
 }
 
 input {
+	font-size: large;
     border: none;
     width: auto;
 }
 
 .complete {
     text-decoration: line-through;
+	color: #BDBDBD;
+}
+
+hr {
+	border: 1px solid #D8D8D8;
+}
+
+.shortcuts {
+	float: left;
+	text-decoration: underline;
+}
+
+footer {
+    height: 142px; /* .push must be the same height as .footer */
+}
+
+footer ul {
+	margin-left: 40px;
+	list-style-type: none;
 }

@@ -13,10 +13,7 @@ module.exports = function(config) {
         files: [
             'src/vendor/angular/angular.js',
             'src/vendor/angular-mocks/angular-mocks.js',
-            'src/vendor/angular-resource/angular-resource.js',
-            'src/vendor/angular-cookies/angular-cookies.js',
-            'src/vendor/angular-sanitize/angular-sanitize.js',
-            'src/vendor/angular-route/angular-route.js',
+            'src/vendor/angular-ui-utils/modules/keypress/keypress.js',
             'src/app/*.js',
             'src/app/**/*.js',
             'test/mock/**/*.js'

@@ -29,10 +29,21 @@
 	
 	<!-- Add your site or application content here -->
 	<div class="container">
-		<article ng-controller="bulletularCtrl">
-			<bullets items="items"></bullets>
-		</article>
+		<div class="wrapper">
+			<article ng-controller="bulletularCtrl">
+				<bullets items="items"></bullets>
+			</article>
+		</div>
 	</div>
+	
+	<hr />
+	<footer role="note">
+		<div class="shortcuts">Shortcuts :</div>
+		<ul>
+			<li><strong>CTRL + Enter:</strong> Complete the task</li>
+			<li><strong>CTRL + ALT + Backspace:</strong> Remove the task</li>
+		</ul>
+	</footer>
 	
 	<!-- build:js app/plugins.js -->
 	<script src="vendor/angular/angular.js"></script>

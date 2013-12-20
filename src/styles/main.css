@@ -2,21 +2,25 @@
     margin: 0;
 }
 html, body {
-    height: 100%;
+    height: 90%;
 }
 
 body {
 	padding-top: 20px;
-	padding-bottom: 20px;
-	margin: 0 auto;
-	width: 900px;
+}
+
+h1 {
+    color: #045FB4;
+    font-family: 'Gilda Display', serif;
 }
 
 .container {
 	min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -142px; /* the bottom margin is the negative value of the footer's height */
+    margin: 0 auto -100px; /* the bottom margin is the negative value of the footer's height */
+	width: 900px;
+    font: 13px Helvetica, arial, freesans, clean, sans-serif;
 }
 
 .wrapper {
@@ -47,7 +51,9 @@ input {
 }
 
 hr {
-	border: 1px solid #D8D8D8;
+	border-bottom: 1px solid #eee;
+    border-top: 0;
+    margin: 10px 0;
 }
 
 .shortcuts {
@@ -55,8 +61,16 @@ hr {
 	text-decoration: underline;
 }
 
+header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
 footer {
-    height: 142px; /* .push must be the same height as .footer */
+    height: 100px; /* .push must be the same height as .footer */
+    margin: 0 auto;
+	width: 900px;
+    font: 15px Helvetica, arial, freesans, clean, sans-serif;
 }
 
 footer ul {

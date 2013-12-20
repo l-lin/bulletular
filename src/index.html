@@ -11,6 +11,7 @@
 	<meta name="viewport" content="width=device-width">
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	
+    <link href='http://fonts.googleapis.com/css?family=Gilda+Display' rel='stylesheet' type='text/css'>
 	<!-- build:css({.tmp,src}) styles/main.css -->
 	<link rel="stylesheet" href="styles/main.css">
 	<!-- endbuild -->
@@ -27,7 +28,11 @@
 	<![endif]-->
 	<!-- endbuild -->
 	
-	<!-- Add your site or application content here -->
+    <header>
+        <h1>Bulletular</h1>
+        <hr />
+    </header>
+    
 	<div class="container">
 		<div class="wrapper">
 			<article ng-controller="bulletularCtrl">
@@ -36,9 +41,9 @@
 		</div>
 	</div>
 	
-	<hr />
 	<footer role="note">
-		<div class="shortcuts">Shortcuts :</div>
+        <hr />
+		<div class="shortcuts">Shortcuts:</div>
 		<ul>
 			<li><strong>CTRL + Enter:</strong> Complete the task</li>
 			<li><strong>CTRL + ALT + Backspace:</strong> Remove the task</li>

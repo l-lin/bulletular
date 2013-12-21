@@ -1,4 +1,4 @@
-(function(ng) {
+(function() {
     'use strict';
-    ng.module('bullet', ['ui.keypress']);
-})(angular);
+    angular.module('bullet', ['ui.keypress']);
+})();

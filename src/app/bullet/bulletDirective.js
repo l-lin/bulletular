@@ -1,11 +1,12 @@
-(function(ng) {
-    ng.module('bullet').directive('focusMe', function($timeout, $parse) {
+(function() {
+    'use strict';
+    angular.module('bullet').directive('focusMe', function() {
         return {
             restrict: 'A',
             scope: {
                 trigger: '=focusMe'
             },
-            link: function($scope, $element, attrs) {
+            link: function($scope, $element) {
                 $scope.$watch('trigger', function(value) {
                     if (value === true) {
                         $element[0].focus();
@@ -16,14 +17,14 @@
         };
     });
 
-    ng.module('bullet').directive('bullets', function(bulletFactory) {
+    angular.module('bullet').directive('bullets', function(bulletFactory) {
         return {
             restrict: 'E',
             templateUrl: 'app/bullet/bullets.html',
             scope: {
                 items: '='
             },
-            link: function($scope, element, attrs) {
+            link: function($scope) {
                 var currentIndex = 0;
 
                 $scope.addItem = function addItem($event, index) {
@@ -66,12 +67,12 @@
                     }
                 };
 
-                $scope.addSubItem = function addSubItem($event, index) {
-                    /*console.log('foo');
-                    $scope.items[index].subItems.push(bulletFactory.newItem(''));
-                    $event.preventDefault();*/
-                }
+                //                $scope.addSubItem = function addSubItem($event, index) {
+                //                    /*console.log('foo');
+                //                    $scope.items[index].subItems.push(bulletFactory.newItem(''));
+                //                    $event.preventDefault();*/
+                //                }
             }
-        }
+        };
     });
-})(angular);
+})();

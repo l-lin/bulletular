@@ -1,6 +1,6 @@
-(function(ng) {
+(function() {
     'use strict';
-    ng.module('bullet').factory('bulletFactory', function() {
+    angular.module('bullet').factory('bulletFactory', function() {
         return {
             newItem: function(text, focus, complete, subItems) {
                 return {
@@ -12,4 +12,4 @@
             }
         };
     });
-})(angular);
+})();

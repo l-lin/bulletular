@@ -5,7 +5,7 @@ describe('Directive: bulletDirective', function() {
     beforeEach(module('bullet'));
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function($injector) {}));
+    beforeEach(inject(function() {}));
 
     it('should test something...', function() {
         // TODO: Complete test

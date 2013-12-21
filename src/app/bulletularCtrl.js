@@ -1,6 +1,6 @@
-(function(ng) {
+(function() {
     'use strict';
-    ng.module('bulletularApp').controller('bulletularCtrl', function($scope, bulletFactory) {
+    angular.module('bulletularApp').controller('bulletularCtrl', function($scope, bulletFactory) {
         $scope.items = [
             bulletFactory.newItem('Developing with AngularJS', true, true),
             bulletFactory.newItem('Add a shortcut to clean all complete tasks', false, false),
@@ -10,4 +10,4 @@
             bulletFactory.newItem('Add breadcrumb', false, false),
         ];
     });
-})(angular);
+})();

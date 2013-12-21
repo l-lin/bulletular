@@ -1,4 +1,5 @@
 (function(ng) {
+    'use strict';
     ng.module('bullet').factory('bulletFactory', function() {
         return {
             newItem: function(text, focus, complete, subItems) {

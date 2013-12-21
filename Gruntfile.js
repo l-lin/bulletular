@@ -72,8 +72,7 @@ module.exports = function(grunt) {
                     open: true,
                     bases: [
                         '<%= yeoman.src %>'
-                    ],
-                    server: 'server/appServer'
+                    ]
                 }
             },
             test: {
@@ -88,8 +87,7 @@ module.exports = function(grunt) {
             dist: {
                 options: {
                     open: true,
-                    bases: '<%= yeoman.dist %>',
-                    server: 'server/appServer'
+                    bases: '<%= yeoman.dist %>'
                 }
             }
         },

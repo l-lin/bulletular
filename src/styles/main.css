@@ -70,3 +70,12 @@ footer ul {
 	margin-left: 40px;
 	list-style-type: none;
 }
+
+a, a:visited {
+    color: #045FB4;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #b4052c;
+}

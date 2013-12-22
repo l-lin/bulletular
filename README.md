@@ -1,4 +1,4 @@
-# Bulletular
+# Bulletular [![Build Status](https://travis-ci.org/l-lin/bulletular.png?branch=master)](https://travis-ci.org/l-lin/bulletular)
 
 Bulletular is a TODO web application based on [AngularJS](http://angularjs.org/) and [AngularUI](http://angular-ui.github.io/).
 

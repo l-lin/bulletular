@@ -52,7 +52,7 @@ Access with a browser to `http://localhost:9000`.
 
 # About this project
 
-This project was created mainly for educational purpose.
+This project was created mainly for learning purpose.
 
 I was just doing some practice with AngularJS and it was also the opportunity to test out the Github pages.
 

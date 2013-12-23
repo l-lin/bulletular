@@ -1,7 +1,5 @@
 <ul>
     <li ng-repeat="item in items">
-        <input ng-model="item.text" type="text" ng-class="{complete:item.complete}" value="{{item.text}}" 
-        ui-keydown="{'ctrl-enter': 'completeItem($event, $index)', 'enter': 'addItem($event, $index)', 'ctrl-alt-backspace': 'removeItem($event, $index)', 'down': 'selectItem($index + 1)', 'up': 'selectItem($index - 1)', 'tab': 'addSubItem($event, $index)'}" 
-        focus-me="item.focus" ng-click="selectItem($index)" />
+        <bullet item="item" ui-keydown="{'ctrl-enter': 'completeItem($event, $index)', 'enter': 'addItem($event, $index)', 'ctrl-alt-backspace': 'removeItem($event, $index)', 'down': 'selectItem($index + 1)', 'up': 'selectItem($index - 1)', 'shift-tab': 'toItem($event, $index)', 'tab': 'toSubItem($event, $index)'}" ng-click="selectItem($index)" ></bullet>
     </li>
 </ul>

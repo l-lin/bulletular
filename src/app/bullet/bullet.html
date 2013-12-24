@@ -1,1 +1,6 @@
-<input ng-model="item.text" type="text" ng-class="{complete:item.complete}" value="{{item.text}}" focus-me="item.focus" />
+<input ng-model="item.text" type="text" ng-class="{complete:item.complete}" value="{{item.text}}" focus-me="item.focus" 
+       ui-keydown="{'ctrl-enter': 'completeItem($event, item.index)', 'enter': 'addItem($event, item.index)', 'ctrl-alt-backspace': 'removeItem($event, item.index)', 'down': 'selectItem(item.index, 1)', 'up': 'selectItem(item.index, -1)', 'shift-tab': 'toItem($event, $index)', 'tab': 'toSubItem($event, $index)'}" 
+       ng-click="selectItem(item.index)" />
+<ul>
+    <li ng-repeat="item in item.items" ng-include="'app/bullet/bullet.html'"></li>
+</ul>

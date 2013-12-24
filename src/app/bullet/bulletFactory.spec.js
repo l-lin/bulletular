@@ -6,6 +6,7 @@ describe('Factory: bulletFactory', function() {
 
     var itemToAdd = {
         text: 'foo',
+        index: '0',
         focus: false,
         complete: true
     }, factory;
@@ -16,9 +17,10 @@ describe('Factory: bulletFactory', function() {
     }));
 
     it('should create an item with the correct attributes', function() {
-        var item = factory.newItem(itemToAdd.text, itemToAdd.focus, itemToAdd.complete);
+        var item = factory.newItem(itemToAdd.text, itemToAdd.index, itemToAdd.focus, itemToAdd.complete);
         expect(item).toBeDefined();
         expect(item.text).toEqual(itemToAdd.text);
+        expect(item.index).toEqual(itemToAdd.index);
         expect(item.focus).toEqual(itemToAdd.focus);
         expect(item.complete).toEqual(itemToAdd.complete);
     });
@@ -27,6 +29,7 @@ describe('Factory: bulletFactory', function() {
         var item = factory.newItem(itemToAdd.text);
         expect(item).toBeDefined();
         expect(item.text).toEqual(itemToAdd.text);
+        expect(item.index).toEqual(itemToAdd.index);
         expect(item.focus).toBeFalsy();
         expect(item.complete).toBeFalsy();
     });

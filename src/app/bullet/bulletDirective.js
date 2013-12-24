@@ -17,7 +17,7 @@
         };
     });
 
-    angular.module('bullet').directive('bullets', function(bulletFactory, $compile) {
+    angular.module('bullet').directive('bullets', function(bulletFactory, bulletUtils, $compile, $log) {
         return {
             restrict: 'E',
             templateUrl: 'app/bullet/bullets.html',
@@ -25,7 +25,7 @@
                 items: '='
             },
             link: function(scope, element) {
-                var currentIndex = 0;
+                var currentItem;
 
                 scope.addItem = function addItem($event, index) {
                     scope.items.splice(index + 1, 0, bulletFactory.newItem(''));
@@ -56,15 +56,21 @@
 
                     $event.preventDefault();
                 };
-
-                scope.selectItem = function selectItem(index) {
-                    if (index >= 0 && index < scope.items.length) {
-                        if (scope.items[currentIndex]) {
-                            scope.items[currentIndex].focus = false;
-                        }
-                        currentIndex = index;
-                        scope.items[index].focus = true;
+                
+                scope.selectItem = function selectItem(selectedIndexes, step) {
+                    var indexes = selectedIndexes.split('-');
+                    if(step) {
+                        indexes[indexes.length -1] = '' + (Number(indexes[indexes.length -1]) + step);
                     }
+                    var item = bulletUtils.selectItem(scope.items, indexes);
+                    if (currentItem) {
+                        currentItem.focus = false;
+                        currentItem.focus = false;
+                    }
+                    currentItem = item;
+                    currentItem.focus = true;
+                    
+                    $log.debug('currentItem.index = ' + currentItem.index);
                 };
 
                 scope.toSubItem = function toSubItem($event, index) {
@@ -79,22 +85,6 @@
                     scope.items.splice(index + 1, 0, scope.items[index]);
                     scope.selectItem(index + 1);
                     $event.preventDefault();
-                }
-            }
-        };
-    });
-    
-    angular.module('bullet').directive('bullet', function($compile) {
-        return {
-            restrict: 'E',
-            templateUrl: 'app/bullet/bullet.html',
-            scope: {
-                item: '='
-            },
-            link: function(scope, element) {
-                if (angular.isArray(scope.item.subItems)) {
-                    element.append('<bullets items="item.subItems"></bullets>'); 
-                    $compile(element.contents())(scope)
                 }
             }
         };

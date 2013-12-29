@@ -28,7 +28,7 @@
      * @param  {ngService} $log the logger
      * @return {ngDirective} the directive for displaying the bulletUtils
      */
-    angular.module('bullet').directive('bullets', function(bulletFactory, bulletUtils, $log) {
+    angular.module('bullet').directive('bullets', function(bulletFactory, bulletUtils) {
         /**
          * Add the step to the index
          * @param {[Integer]} indexes the array of indexes
@@ -72,8 +72,8 @@
             scope: {
                 bullets: '='
             },
-            link: function(scope, element) {
-            	var currentBullet;
+            link: function(scope) {
+                var currentBullet;
                 /**
                  * Watch the array of bullets and re-populate the array of indexes of each bullets
                  * @param {[bullet]} bullets the array of bullets
@@ -88,17 +88,14 @@
                  * @param {Integer} step the step to add to the last element of the array of the indexes
                  */
                 scope.selectBullet = function selectBullet(indexes, step) {
-                	$log.debug('Indexes = ' + indexes);
-                	$log.debug('Step = ' + step);
                     var indexesArray = addStepToIndex(indexes, step);
                     try {
                         var selectedBullet = bulletUtils.findBullet(scope.bullets, indexesArray);
-                        if(currentBullet) {
-                        	currentBullet.focus = false;
+                        if (currentBullet) {
+                            currentBullet.focus = false;
                         }
                         selectedBullet.focus = true;
                         currentBullet = selectedBullet;
-                        $log.warn(currentBullet);
                     } catch (err) {}
                 };
 
@@ -109,8 +106,8 @@
                  */
                 scope.addBullet = function addBullet($event, indexes) {
                     var bullets = bulletUtils.findBulletsArray(scope.bullets, indexes.slice()),
-	                    newIndexes = addStepToIndex(indexes, 1),
-                    	index = newIndexes[newIndexes.length - 1];
+                        newIndexes = addStepToIndex(indexes, 1),
+                        index = newIndexes[newIndexes.length - 1];
                     bulletUtils.checkArray(bullets);
 
                     bullets.splice(index, 0, bulletFactory.newBullet());
@@ -137,8 +134,8 @@
                  */
                 scope.removeBullet = function removeBullet($event, indexes) {
                     var index = indexes[indexes.length - 1],
-                    	bullets = bulletUtils.findBulletsArray(scope.bullets, indexes.slice()),
-                    	indexToFocus = [0];
+                        bullets = bulletUtils.findBulletsArray(scope.bullets, indexes.slice()),
+                        indexToFocus = [0];
                     bullets.splice(index, 1);
 
                     // In case we removed every bullets
@@ -158,37 +155,61 @@
                     $event.preventDefault();
                 };
 
-            	/**
-            	 * Add the bullet to the sub bullets array of the previous bullet
-            	 * @param {event} $event event
-            	 * @param {[Integer]} indexes the array of indexes
-            	 */
+                /**
+                 * Add the bullet to the sub bullets array of the previous bullet
+                 * @param {event} $event event
+                 * @param {[Integer]} indexes the array of indexes
+                 */
                 scope.toSubBullet = function toSubBullet($event, indexes) {
-                	var newIndexes = indexes.slice(),
-                		bullets = bulletUtils.findBulletsArray(scope.bullets, newIndexes),
-                		bullet = bulletUtils.findBullet(scope.bullets, newIndexes),
-                		index = indexes[indexes.length - 1],
-                		previousIndex = index - 1,
-                		previousBullet = bullets[previousIndex];
+                    var newIndexes = indexes.slice(),
+                        bullets = bulletUtils.findBulletsArray(scope.bullets, newIndexes),
+                        bullet = bulletUtils.findBullet(scope.bullets, newIndexes),
+                        index = indexes[indexes.length - 1],
+                        previousIndex = index - 1,
+                        previousBullet = bullets[previousIndex];
 
                     if (previousBullet) {
-                    	// Push the bullet to the previous bullet sub bullets array
-                    	previousBullet.bullets.push(bullet);
-                    	// Remove the bullet from the origin bullets array
+                        // Push the bullet to the previous bullet sub bullets array
+                        previousBullet.bullets.push(bullet);
+                        // Remove the bullet from the origin bullets array
                         bullets.splice(index, 1);
                         // Put the cursor on the bullet
-                    	newIndexes = previousBullet.index;
-                    	newIndexes.push(previousBullet.bullets.length - 1);
+                        newIndexes = previousBullet.index;
+                        newIndexes.push(previousBullet.bullets.length - 1);
                         scope.selectBullet(newIndexes);
                     }
                     $event.preventDefault();
-                }
+                };
 
-                scope.toBullet = function toBullet($event, index) {
-                    scope.items.splice(index + 1, 0, scope.items[index]);
-                    scope.selectItem(index + 1);
+                /**
+                 * Add the bullet to the parent bullets array
+                 * @param  {event} $event event
+                 * @param  {[Integer]} indexes the array of indexes
+                 */
+                scope.toBullet = function toBullet($event, indexes) {
+                    var newIndexes = indexes.slice(),
+                        oldBullets = bulletUtils.findBulletsArray(scope.bullets, newIndexes),
+                        oldBullet = bulletUtils.findBullet(scope.bullets, newIndexes),
+                        oldIndex = indexes[indexes.length - 1];
+                    // Remove the last index of the array
+                    newIndexes.pop();
+
+                    // Add the bullet to the parent bullets array
+                    var bullets = bulletUtils.findBulletsArray(scope.bullets, newIndexes),
+                        newIndex = newIndexes[newIndexes.length - 1] + 1;
+                    if (newIndex) {
+                        // Remove the bullet from the sub bullets
+                        oldBullets.splice(oldIndex, 1);
+                        // Add the bullet to the parent bullets array
+                        bullets.splice(newIndex, 0, oldBullet);
+
+                        // Put the cursor on the bullet
+                        newIndexes[newIndexes.length - 1] = newIndex;
+                        scope.selectBullet(newIndexes);
+                    }
+
                     $event.preventDefault();
-                }
+                };
             }
         };
     });

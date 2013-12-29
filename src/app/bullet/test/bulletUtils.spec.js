@@ -10,7 +10,7 @@ describe('Service: bulletUtils', function() {
         utils = bulletUtils;
         
         bulletsMock = [
-            bulletFactory.newBullet([0], 'Developing with AngularJS', true, true, [bulletFactory.newBullet([0, 0], 'foo'), bulletFactory.newBullet([0, 1], 'foo2')]),
+            bulletFactory.newBullet([0], 'Developing with AngularJS', true, true, [bulletFactory.newBullet([0, 0], 'foo', false, false, [bulletFactory.newBullet([0,0,0], 'foo000')]), bulletFactory.newBullet([0, 1], 'foo2')]),
             bulletFactory.newBullet([1],'Add a shortcut to clean all complete tasks',  false, false),
             bulletFactory.newBullet([2],'Add sub tasks',  false, false),
             bulletFactory.newBullet([3],'Add localestorage for saving tasks',  false, false),
@@ -89,6 +89,17 @@ describe('Service: bulletUtils', function() {
         expect(firstBulletsArray.index).toEqual(firstBulletMock.index);
         expect(firstBulletsArray.focus).toEqual(firstBulletMock.focus);
         expect(firstBulletsArray.complete).toEqual(firstBulletMock.complete);
+        expect(bullet.text).toEqual(bulletMock.text);
+        expect(bullet.index).toEqual(bulletMock.index);
+        expect(bullet.focus).toEqual(bulletMock.focus);
+        expect(bullet.complete).toEqual(bulletMock.complete);
+    });
+
+    it('should fetch the item 0-0-0 from a given list of bullets and index 0-0-0', function() {
+        var bulletsArray = utils.findBulletsArray(bulletsMock, [0, 0, 0]),
+            bullet = utils.findBullet(bulletsMock, [0, 0, 0]),
+            bulletMock = bulletsMock[0].bullets[0].bullets[0];
+        expect(bulletsArray).toBeDefined();
         expect(bullet.text).toEqual(bulletMock.text);
         expect(bullet.index).toEqual(bulletMock.index);
         expect(bullet.focus).toEqual(bulletMock.focus);

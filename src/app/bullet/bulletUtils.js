@@ -21,7 +21,9 @@
          * @return {[Integer]} The next array of indexes
          */
         var nextIndexes = function nextIndexes(indexes) {
-            return indexes.slice().splice(0, 1);
+            var newIndexes = indexes.slice();
+            newIndexes.splice(0, 1);
+            return newIndexes;
         };
 
         return {

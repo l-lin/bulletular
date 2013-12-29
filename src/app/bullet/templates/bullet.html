@@ -1,5 +1,5 @@
 <input ng-model="bullet.text" type="text" ng-class="{complete:bullet.complete}" bul-focusme="bullet.focus" 
-       ui-keydown="{'ctrl-enter': 'completeBullet($event, bullet.index)', 'enter': 'addBullet($event, bullet.index)', 'ctrl-alt-backspace': 'removeBullet($event, bullet.index)', 'down': 'selectBullet(bullet.index, 1)', 'up': 'selectBullet(bullet.index, -1)', 'shift-tab': 'toBullet($event, $index)', 'tab': 'toSubBullet($event, $index)'}" 
+       ui-keydown="{'ctrl-enter': 'completeBullet($event, bullet.index)', 'enter': 'addBullet($event, bullet.index)', 'ctrl-alt-backspace': 'removeBullet($event, bullet.index)', 'down': 'selectBullet(bullet.index, 1)', 'up': 'selectBullet(bullet.index, -1)', 'shift-tab': 'toBullet($event, bullet.index)', 'tab': 'toSubBullet($event, bullet.index)'}" 
        ng-click="selectBullet(bullet.index)" />
 <ul>
     <li ng-repeat="bullet in bullet.bullets" ng-include="'app/bullet/templates/bullet.html'"></li>

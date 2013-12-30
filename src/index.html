@@ -40,7 +40,7 @@
 	<div class="container">
 		<div class="wrapper">
 			<article ng-controller="bulletularCtrl">
-				<bullets items="items"></bullets>
+				<bullets bullets="bullets"></bullets>
 			</article>
 		</div>
 	</div>
@@ -52,6 +52,8 @@
 			<li><strong>CTRL + Enter:</strong> Complete the task</li>
 			<li><strong>CTRL + ALT + Backspace:</strong> Remove the task</li>
             <li><strong>UP / DOWN:</strong> Switch task</li>
+            <li><strong>TAB:</strong> Increase indent</li>
+            <li><strong>SHIFT + TAB:</strong> Decrease indent</li>
 		</ul>
 	</footer>
 	
@@ -65,6 +67,7 @@
 	
 	<!-- build:js({.tmp,src}) app/app.js -->
     <script src="app/bullet/bullet.js"></script>
+    <script src="app/bullet/bulletUtils.js"></script>
     <script src="app/bullet/bulletFactory.js"></script>
     <script src="app/bullet/bulletDirective.js"></script>
     <script src="app/bulletularApp.js"></script>

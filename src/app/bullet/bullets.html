@@ -1,5 +1,0 @@
-<ul>
-    <li ng-repeat="item in items">
-        <bullet item="item" ui-keydown="{'ctrl-enter': 'completeItem($event, $index)', 'enter': 'addItem($event, $index)', 'ctrl-alt-backspace': 'removeItem($event, $index)', 'down': 'selectItem($index + 1)', 'up': 'selectItem($index - 1)', 'shift-tab': 'toItem($event, $index)', 'tab': 'toSubItem($event, $index)'}" ng-click="selectItem($index)" ></bullet>
-    </li>
-</ul>

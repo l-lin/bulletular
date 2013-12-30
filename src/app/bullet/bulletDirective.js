@@ -1,10 +1,14 @@
 (function() {
     'use strict';
-    angular.module('bullet').directive('focusMe', function() {
+    /**
+     * Directive used for placing the mouse cursor
+     * @return {ngDirective} the directive for focusing the tasks
+     */
+    angular.module('bullet').directive('bulFocusme', function() {
         return {
             restrict: 'A',
             scope: {
-                trigger: '=focusMe'
+                trigger: '=bulFocusme'
             },
             link: function(scope, element) {
                 scope.$watch('trigger', function(value) {
@@ -17,85 +21,195 @@
         };
     });
 
-    angular.module('bullet').directive('bullets', function(bulletFactory, $compile) {
-        return {
-            restrict: 'E',
-            templateUrl: 'app/bullet/bullets.html',
-            scope: {
-                items: '='
-            },
-            link: function(scope, element) {
-                var currentIndex = 0;
+    /**
+     * Directive for displaying the the tasks
+     * @param  {ngFactory} bulletFactory the bullet factory
+     * @param  {ngFactory} bulletUtils the bullet utils
+     * @param  {ngService} $log the logger
+     * @return {ngDirective} the directive for displaying the bulletUtils
+     */
+    angular.module('bullet').directive('bullets', function(bulletFactory, bulletUtils) {
+        /**
+         * Add the step to the index
+         * @param {[Integer]} indexes the array of indexes
+         * @param {Integer} step the step to add to the last element of the array
+         */
+        var addStepToIndex = function addStepToIndex(indexes, step) {
+            bulletUtils.checkArray(indexes);
+            var indexesArray = indexes.slice();
+            if (step && angular.isNumber(step)) {
+                indexesArray[indexesArray.length - 1] = indexesArray[indexesArray.length - 1] + step;
+            }
+            return indexesArray;
+        };
 
-                scope.addItem = function addItem($event, index) {
-                    scope.items.splice(index + 1, 0, bulletFactory.newItem(''));
-                    scope.selectItem(index + 1);
-                    $event.preventDefault();
-                };
-
-                scope.completeItem = function completeItem($event, index) {
-                    scope.items[index].complete = !scope.items[index].complete;
-                    $event.preventDefault();
-                };
-
-                scope.removeItem = function removeItem($event, index) {
-                    var indexToFocus = 0;
-
-                    scope.items.splice(index, 1);
-                    if (scope.items.length === 0) {
-                        scope.items.push(bulletFactory.newItem(''));
-                        scope.selectItem(0);
+        /**
+         * Populate the indexes of the array of bullets
+         * @param {[bullet]} bullets the array of bullets
+         * @param {[Integer]} indexes the array of indexes
+         */
+        var populateIndexes = function populateIndexes(bullets, indexes) {
+            var i;
+            if (bullets) {
+                for (i = 0; i < bullets.length; i++) {
+                    var indexesArray;
+                    if (indexes) {
+                        indexesArray = indexes.slice();
+                    } else {
+                        indexesArray = [];
                     }
-
-                    if (scope.items[index]) {
-                        indexToFocus = index;
-                    } else if (scope.items[index - 1]) {
-                        indexToFocus = index - 1;
-                    }
-                    scope.selectItem(indexToFocus);
-
-                    $event.preventDefault();
-                };
-
-                scope.selectItem = function selectItem(index) {
-                    if (index >= 0 && index < scope.items.length) {
-                        if (scope.items[currentIndex]) {
-                            scope.items[currentIndex].focus = false;
-                        }
-                        currentIndex = index;
-                        scope.items[index].focus = true;
-                    }
-                };
-
-                scope.toSubItem = function toSubItem($event, index) {
-                    if(scope.items[index - 1]) {
-                        scope.items[index - 1].subItems.push(scope.items[index]);
-                        scope.items.splice(index, 1);
-                    }
-                    $event.preventDefault();
-                }
-                
-                scope.toItem = function toItem($event, index) {
-                    scope.items.splice(index + 1, 0, scope.items[index]);
-                    scope.selectItem(index + 1);
-                    $event.preventDefault();
+                    indexesArray.push(i);
+                    bullets[i].index = indexesArray;
+                    // bullets[i].focus = false;
+                    populateIndexes(bullets[i].bullets, indexesArray);
                 }
             }
         };
-    });
-    
-    angular.module('bullet').directive('bullet', function($compile) {
+
         return {
             restrict: 'E',
-            templateUrl: 'app/bullet/bullet.html',
+            templateUrl: 'app/bullet/templates/bullets.html',
             scope: {
-                item: '='
+                bullets: '='
             },
-            link: function(scope, element) {
-                if (angular.isArray(scope.item.subItems)) {
-                    element.append('<bullets items="item.subItems"></bullets>'); 
-                    $compile(element.contents())(scope)
-                }
+            link: function(scope) {
+                var currentBullet;
+                /**
+                 * Watch the array of bullets and re-populate the array of indexes of each bullets
+                 * @param {[bullet]} bullets the array of bullets
+                 */
+                scope.$watch('bullets', function(bullets) {
+                    populateIndexes(bullets);
+                }, true);
+
+                /**
+                 * Select the bullet in wich the cursor must be focused
+                 * @param {[Integer]} indexes the array of indexes in wich the cursor must be focuses
+                 * @param {Integer} step the step to add to the last element of the array of the indexes
+                 */
+                scope.selectBullet = function selectBullet(indexes, step) {
+                    var indexesArray = addStepToIndex(indexes, step);
+                    try {
+                        var selectedBullet = bulletUtils.findBullet(scope.bullets, indexesArray);
+                        if (currentBullet) {
+                            currentBullet.focus = false;
+                        }
+                        selectedBullet.focus = true;
+                        currentBullet = selectedBullet;
+                    } catch (err) {}
+                };
+
+                /**
+                 * Add a new bullet in the given index
+                 * @param {event} $event the event
+                 * @param {[Integer]} indexes the array of indexes
+                 */
+                scope.addBullet = function addBullet($event, indexes) {
+                    var bullets = bulletUtils.findBulletsArray(scope.bullets, indexes.slice()),
+                        newIndexes = addStepToIndex(indexes, 1),
+                        index = newIndexes[newIndexes.length - 1];
+                    bulletUtils.checkArray(bullets);
+
+                    bullets.splice(index, 0, bulletFactory.newBullet());
+                    scope.selectBullet(newIndexes);
+
+                    $event.preventDefault();
+                };
+
+                /**
+                 * Complete the bullet
+                 * @param {event} $event the event
+                 * @param {[Integer]} indexes the array of indexes
+                 */
+                scope.completeBullet = function completeBullet($event, indexes) {
+                    var selectedBullet = bulletUtils.findBullet(scope.bullets, indexes);
+                    selectedBullet.complete = !selectedBullet.complete;
+                    $event.preventDefault();
+                };
+
+                /**
+                 * Remove the bullet
+                 * @param {event} $event the event
+                 * @param {[Integer]} indexes the array of indexes
+                 */
+                scope.removeBullet = function removeBullet($event, indexes) {
+                    var index = indexes[indexes.length - 1],
+                        bullets = bulletUtils.findBulletsArray(scope.bullets, indexes.slice()),
+                        indexToFocus = [0];
+                    bullets.splice(index, 1);
+
+                    // In case we removed every bullets
+                    if (!scope.bullets.length) {
+                        scope.bullets.push(bulletFactory.newBullet());
+                    }
+
+                    if (bullets[index]) {
+                        indexToFocus = indexes.slice();
+                        indexToFocus[indexToFocus.length - 1] = index;
+                    } else if (bullets[index - 1]) {
+                        indexToFocus = indexes.slice();
+                        indexToFocus[indexToFocus.length - 1] = index - 1;
+                    }
+                    scope.selectBullet(indexToFocus);
+
+                    $event.preventDefault();
+                };
+
+                /**
+                 * Add the bullet to the sub bullets array of the previous bullet
+                 * @param {event} $event event
+                 * @param {[Integer]} indexes the array of indexes
+                 */
+                scope.toSubBullet = function toSubBullet($event, indexes) {
+                    var newIndexes = indexes.slice(),
+                        bullets = bulletUtils.findBulletsArray(scope.bullets, newIndexes),
+                        bullet = bulletUtils.findBullet(scope.bullets, newIndexes),
+                        index = indexes[indexes.length - 1],
+                        previousIndex = index - 1,
+                        previousBullet = bullets[previousIndex];
+
+                    if (previousBullet) {
+                        // Push the bullet to the previous bullet sub bullets array
+                        previousBullet.bullets.push(bullet);
+                        // Remove the bullet from the origin bullets array
+                        bullets.splice(index, 1);
+                        // Put the cursor on the bullet
+                        newIndexes = previousBullet.index;
+                        newIndexes.push(previousBullet.bullets.length - 1);
+                        scope.selectBullet(newIndexes);
+                    }
+                    $event.preventDefault();
+                };
+
+                /**
+                 * Add the bullet to the parent bullets array
+                 * @param  {event} $event event
+                 * @param  {[Integer]} indexes the array of indexes
+                 */
+                scope.toBullet = function toBullet($event, indexes) {
+                    var newIndexes = indexes.slice(),
+                        oldBullets = bulletUtils.findBulletsArray(scope.bullets, newIndexes),
+                        oldBullet = bulletUtils.findBullet(scope.bullets, newIndexes),
+                        oldIndex = indexes[indexes.length - 1];
+                    // Remove the last index of the array
+                    newIndexes.pop();
+
+                    // Add the bullet to the parent bullets array
+                    var bullets = bulletUtils.findBulletsArray(scope.bullets, newIndexes),
+                        newIndex = newIndexes[newIndexes.length - 1] + 1;
+                    if (newIndex) {
+                        // Remove the bullet from the sub bullets
+                        oldBullets.splice(oldIndex, 1);
+                        // Add the bullet to the parent bullets array
+                        bullets.splice(newIndex, 0, oldBullet);
+
+                        // Put the cursor on the bullet
+                        newIndexes[newIndexes.length - 1] = newIndex;
+                        scope.selectBullet(newIndexes);
+                    }
+
+                    $event.preventDefault();
+                };
             }
         };
     });

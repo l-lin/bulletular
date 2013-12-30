@@ -30,9 +30,9 @@ module.exports = function(grunt) {
                     livereload: '<%= express.options.livereload %>'
                 },
                 files: [
-                    '<%= yeoman.src %>/{,*/}*.html',
+                    '<%= yeoman.src %>/**/*.html',
                     '<%= yeoman.src %>/styles/{,*/}*.css',
-                    '{<%= yeoman.build %>,<%= yeoman.src %>}/app/{,*/}*.js',
+                    '<%= yeoman.src %>/app/{,*/}*.js',
                     '<%= yeoman.src %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
             },

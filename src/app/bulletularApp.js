@@ -1,4 +1,4 @@
 (function() {
     'use strict';
-    angular.module('bulletularApp', ['bullet']);
+    angular.module('bulletularApp', ['bullet', 'ngAnimate']);
 })();

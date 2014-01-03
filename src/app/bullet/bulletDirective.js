@@ -124,6 +124,7 @@
                 scope.completeBullet = function completeBullet($event, indexes) {
                     var selectedBullet = bulletUtils.findBullet(scope.bullets, indexes);
                     selectedBullet.complete = !selectedBullet.complete;
+                    scope.selectBullet(indexes, 1);
                     $event.preventDefault();
                 };
 

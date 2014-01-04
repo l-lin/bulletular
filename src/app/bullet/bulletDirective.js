@@ -83,6 +83,15 @@
                 }, true);
 
                 /**
+                 * Check if the given bullet has sub bullets
+                 * @param  {bullet}  bullet the bullet
+                 * @return {Boolean} true if it has sub bullets, false otherwise
+                 */
+                scope.hasBullets = function hasBullets(bullet) {
+                    return bullet.bullets.length > 0;
+                };
+
+                /**
                  * Select the bullet in wich the cursor must be focused
                  * @param {[Integer]} indexes the array of indexes in wich the cursor must be focuses
                  * @param {Integer} step the step to add to the last element of the array of the indexes
@@ -209,6 +218,17 @@
                         scope.selectBullet(newIndexes);
                     }
 
+                    $event.preventDefault();
+                };
+
+                /**
+                 * Show/Hide the sub bullets of the selected bullet
+                 * @param  {event} $event the event
+                 * @param  {[Integer]} indexes the array of indexes of the bullet
+                 */
+                scope.expandHideBullets = function expandHideBullets($event, indexes) {
+                    var bullet = bulletUtils.findBullet(scope.bullets, indexes.slice());
+                    bullet.hideBullets = !bullet.hideBullets;
                     $event.preventDefault();
                 };
             }

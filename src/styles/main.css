@@ -1,3 +1,7 @@
+/* ---------------------------------------- */
+/* COMMON */
+/* ---------------------------------------- */
+
 * {
     margin: 0;
 }
@@ -11,54 +15,34 @@ h1 {
     font-family: 'Gilda Display', serif;
 }
 
-.container {
-    margin: 0 auto;
-	width: 900px;
-    font: 13px Helvetica, arial, freesans, clean, sans-serif;
+ul {
+    list-style-type: none;
 }
 
-.wrapper {
-    margin-top: 10px;
-	padding: 3px;
-	background: #eee;
-	border-radius: 3px;
+a, a:visited {
+    color: #045FB4;
+    text-decoration: none;
 }
 
-article {
-	background-color: #FFF;
-	border: 1px solid #CACACA;
-	padding: 30px;
-}
-
-input:focus {
-    outline: 0;
-}
-
-input {
-	font-size: large;
-    border: none;
-    width: 99%;
-}
-
-.complete {
-    text-decoration: line-through;
-	color: #BDBDBD;
+a:hover {
+    color: #b4052c;
 }
 
 hr {
-	border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #eee;
     border-top: 0;
     margin: 10px 0;
 }
 
-.shortcuts {
-	float: left;
-	text-decoration: underline;
-}
+/* ---------------------------------------- */
+/* HEADER */
+/* ---------------------------------------- */
 
 header {
     text-align: center;
 }
+
+/* SAVE MESSAGE */
 
 button {
     display: inline-block;
@@ -85,26 +69,6 @@ button.trash {
     background-color: #B40404;
     border-color: #B40404;
     background-image: linear-gradient(#FF6464, #FF0000 6%, #B60E0E);
-}
-
-footer {
-    margin: 30px auto 0 auto;
-	width: 900px;
-    font: 15px Helvetica, arial, freesans, clean, sans-serif;
-}
-
-footer ul {
-	margin-left: 40px;
-	list-style-type: none;
-}
-
-a, a:visited {
-    color: #045FB4;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #b4052c;
 }
 
 .msg-save {
@@ -142,5 +106,118 @@ a:hover {
  
 .msg-save.ng-hide-add,
 .msg-save.ng-hide-remove.ng-hide-remove-active {
+    opacity:1;
+}
+
+/* ---------------------------------------- */
+/* FOOTER */
+/* ---------------------------------------- */
+
+footer {
+    margin: 30px auto 0 auto;
+    width: 900px;
+    font: 15px Helvetica, arial, freesans, clean, sans-serif;
+}
+
+footer ul {
+    margin-left: 40px;
+    list-style-type: none;
+}
+
+.shortcuts {
+    float: left;
+    text-decoration: underline;
+}
+
+/* ---------------------------------------- */
+/* MAIN CONTENT */
+/* ---------------------------------------- */
+
+article {
+    background-color: #FFF;
+    border: 1px solid #CACACA;
+    padding: 30px;
+    border-radius: 5px;
+}
+
+.container {
+    margin: 0 auto;
+	width: 900px;
+    font: 13px Helvetica, arial, freesans, clean, sans-serif;
+}
+
+.wrapper {
+    margin-top: 10px;
+	padding: 3px;
+	background: #eee;
+	border-radius: 5px;
+}
+
+input:focus {
+    outline: 0;
+}
+
+input[type="text"] {
+	font-size: large;
+    border: none;
+    width: 96%;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+label:before {
+    border: 8px solid transparent;
+    border-width: 5px 5px;
+    border-color: #5EA7F7;
+    margin-left: -20px;
+    content: '';
+    position: absolute;
+    margin-top: 7px;
+    -webkit-transform-origin: 25% 50%;
+    -moz-transform-origin: 25% 50%;;
+    -o-transform-origin: 25% 50%;;
+    transform-origin: 25% 50%;
+    -webkit-transition:all .5s ease;
+    -moz-transition:all .5s ease;
+    -o-transition:all .5s ease;
+    transition:all .5s ease;
+}
+
+input[type=checkbox] + label.has-bullets:before {
+    border: 8px solid transparent;
+    border-width: 8px 12px;
+    border-left-color: #5EA7F7;
+    margin-top: 3px;
+}
+
+input[type=checkbox]:checked + label.has-bullets:before {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.complete {
+    text-decoration: line-through;
+	color: #BDBDBD;
+}
+
+.bullets.ng-hide-add, .bullets.ng-hide-remove {
+    -webkit-transition:all linear 0.2s;
+    -moz-transition:all linear 0.2s;
+    -o-transition:all linear 0.2s;
+    transition:all linear 0.2s;
+    display:block!important;
+}
+ 
+.bullets.ng-hide-add.ng-hide-add-active,
+.bullets.ng-hide-remove {
+    opacity:0;
+}
+ 
+.bullets.ng-hide-add,
+.bullets.ng-hide-remove.ng-hide-remove-active {
     opacity:1;
 }

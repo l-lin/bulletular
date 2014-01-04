@@ -1,6 +1,6 @@
 (function() {
     'use strict';
-    angular.module('bulletularApp').controller('bulletularCtrl', function($scope, $log, $timeout, bulletFactory) {
+    angular.module('bulletularApp').controller('bulletularCtrl', function($rootScope, $scope, $log, $timeout, bulletFactory) {
         var BULLETS_KEY = 'bullets',
             bullets;
         if (angular.isDefined(localStorage)) {
@@ -36,6 +36,9 @@
             }, 3000);
         };
 
+        /**
+         * Remove all bullets including those saved in the localStorage
+         */
         $scope.removeAllBullets = function removeAllBullets() {
             localStorage.removeItem(BULLETS_KEY);
             $scope.bullets = [bulletFactory.newBullet()];

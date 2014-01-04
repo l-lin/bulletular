@@ -1,4 +1,4 @@
-# Bulletular [![Build Status](https://travis-ci.org/l-lin/bulletular.png?branch=master)](https://travis-ci.org/l-lin/bulletular) [![Stories in Ready](https://badge.waffle.io/l-lin/bulletular.png?label=ready)](https://waffle.io/l-lin/bulletular) [![Dependency Status](https://gemnasium.com/l-lin/bulletular.png)](https://gemnasium.com/l-lin/bulletular)
+# Bulletular [![Build Status](https://travis-ci.org/l-lin/bulletular.png?branch=master)](https://travis-ci.org/l-lin/bulletular) [![Stories in Ready](https://badge.waffle.io/l-lin/bulletular.png?label=ready)](https://waffle.io/l-lin/bulletular) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 Bulletular is a TODO web application based on [AngularJS](http://angularjs.org/) and [AngularUI](http://angular-ui.github.io/).
 

@@ -1,8 +1,8 @@
 # Bulletular [![Build Status](https://travis-ci.org/l-lin/bulletular.png?branch=master)](https://travis-ci.org/l-lin/bulletular) [![Stories in Ready](https://badge.waffle.io/l-lin/bulletular.png?label=ready)](https://waffle.io/l-lin/bulletular) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
-Bulletular is a TODO web application based on [AngularJS](http://angularjs.org/) and [AngularUI](http://angular-ui.github.io/).
+>Bulletular is a TODO web application based on [AngularJS](http://angularjs.org/) and [AngularUI](http://angular-ui.github.io/).
 
-Bulletular functionnalities is mainly based on [Workflowy](https://workflowy.com/) ideas of keyboard shortcuts for completing, removing, moving tasks. 
+>Bulletular functionnalities is mainly based on [Workflowy](https://workflowy.com/) ideas of keyboard shortcuts for completing, removing, moving tasks. 
 
 *Note: I use Workflowy everyday btw. I strongly recommend this application to organize thoughts/ideas/work*
 
